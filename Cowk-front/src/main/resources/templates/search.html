@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta name="viewport" content="width=device-width">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+
+<body>
+<?php include 'header.php'?>
+<style>
+.choices[data-type*=select-one]:after {
+    display: none !important;
+}
+
+.leftSVG,
+.rightSVG {
+    z-index: 3;
+}
+
+.res-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+    background: var(--gray);
+    position: relative;
+    border-radius: var(--br);
+}
+
+.res-img {
+    height: 150px;
+    width: 35%;
+    object-fit: contain;
+    overflow: hidden;
+}
+
+.res-img img {
+    border-bottom-left-radius: var(--br);
+    border-top-left-radius: var(--br);
+    max-height: 100%;
+}
+
+.nxt {
+    width: 2rem;
+    height: 2rem;
+    /*background: #263238;*/
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--headings);
+    border-radius: 50%;
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+}
+
+.locsvg17 {
+    height: 17px;
+    width: 17px;
+}
+
+.searchIP {
+    width: 100%;
+    height: 100%;
+    outline: none !important;
+    border: none;
+    background: var(--white);
+}
+
+#iptoggle {
+    position: relative;
+    height: 48px;
+    flex-grow: 1;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+#iptoggle>* {
+    transition: 300ms all ease-in;
+}
+
+.choices__inner {
+    border: none !important;
+}
+
+.choices__list.choices__list--dropdown {
+    top: 0 !important;
+    background: var(--white) !important;
+    background-color: var(--white) !important;
+    border: none !important;
+}
+
+.choices__input {
+    background: var(--white) !important;
+    background-color: var(--white) !important;
+}
+
+.no-width {
+    width: 0 !important;
+}
+
+.w-100notIP {
+    background: var(--white);
+    height: 48px;
+    position: absolute;
+    right: 0;
+    width: 100%;
+}
+
+.removeStyles {
+    text-decoration: none;
+}
+
+.removeStyles:hover {
+    text-decoration: none;
+}
+
+.removeStyles:active {
+    text-decoration: none;
+}
+
+.removeStyles:focus {
+    text-decoration: none;
+}
+</style>
+<div class="cowk-container">
+    <div class="searchBox d-flex align-items-center justify-content-between" id='parentSearch'>
+        <a href="location.php">
+        <div class='svg-holder leftSVG'>
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24"
+                height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                <polyline points="15 6 9 12 15 18"></polyline>
+            </svg>
+        </div>
+        </a>
+        <div id='iptoggle'>
+            <h3 class='fontEB headings text-center'> Find Your Place</h3>
+            <!--input placeholder='Find Your Place' class='d-none searchIP' type="text"-->
+            <div class='no-width d-none w-100notIP'>
+                <select class='searchIP'>
+                    <option class='optMain'> Start searching... </option>
+                    <option>A</option>
+                    <option>A</option>
+                    <option>A</option>
+                    <option>A</option>
+                    <option>A</option>
+                    <option>A</option>
+                </select>
+            </div>
+        </div>
+        <div id='searchBtn' class='svg-holder rightSVG'>
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24"
+                stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <circle cx="10" cy="10" r="7" />
+                <line x1="21" y1="21" x2="15" y2="15" />
+            </svg>
+        </div>
+    </div>
+    <div class='mt-4'>
+        <a class="removeStyles" href="menu.php">
+            <div class='res-item'>
+                <div class='res-img'> <img src="assets/images/1.jpg" alt=""> </div>
+                <div class='m-3'>
+                    <h3 class='fontEB headings'> Paradise Biryani</h3>
+                    <div class='gray2 fontB'>
+                        <span> <img src="assets/images/location.svg" class='locsvg17' alt=""></span>
+                        Habsiguda
+                    </div>
+                </div>
+                <div class="nxt">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-right"
+                        width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                        <polyline points="9 6 15 12 9 18"></polyline>
+                    </svg>
+                </div>
+            </div>
+        </a>
+        <a class="removeStyles" href="menu.php">
+            <div class='res-item'>
+                <div class='res-img'> <img src="assets/images/1.jpg" alt=""> </div>
+                <div class='m-3'>
+                    <h3 class='fontEB headings'> Paradise Biryani</h3>
+                    <div class='gray2 fontB'>
+                        <span> <img src="assets/images/location.svg" class='locsvg17' alt=""></span>
+                        Habsiguda
+                    </div>
+                </div>
+                <div class="nxt">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-right"
+                        width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                        <polyline points="9 6 15 12 9 18"></polyline>
+                    </svg>
+                </div>
+            </div>
+        </a>
+        <a class="removeStyles" href="menu.php">
+            <div class='res-item'>
+                <div class='res-img'> <img src="assets/images/2.jpg" alt=""> </div>
+                <div class='m-3'>
+                    <h3 class='fontEB headings'> Paradise Biryani</h3>
+                    <div class='gray2 fontB'>
+                        <span> <img src="assets/images/location.svg" class='locsvg17' alt=""></span>
+                        Habsiguda
+                    </div>
+                </div>
+                <div class="nxt">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-right"
+                        width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                        <polyline points="9 6 15 12 9 18"></polyline>
+                    </svg>
+                </div>
+            </div>
+        </a>
+        <a class="removeStyles" href="menu.php">
+            <div class='res-item'>
+                <div class='res-img'> <img src="assets/images/1.jpg" alt=""> </div>
+                <div class='m-3'>
+                    <h3 class='fontEB headings'> Paradise Biryani</h3>
+                    <div class='gray2 fontB'>
+                        <span> <img src="assets/images/location.svg" class='locsvg17' alt=""></span>
+                        Habsiguda
+                    </div>
+                </div>
+                <div class="nxt">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-right"
+                        width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                        <polyline points="9 6 15 12 9 18"></polyline>
+                    </svg>
+                </div>
+            </div>
+        </a>
+        <a class="removeStyles" href="menu.php">
+            <div class='res-item'>
+                <div class='res-img'> <img src="assets/images/1.jpg" alt=""> </div>
+                <div class='m-3'>
+                    <h3 class='fontEB headings'> Paradise Biryani</h3>
+                    <div class='gray2 fontB'>
+                        <span> <img src="assets/images/location.svg" class='locsvg17' alt=""></span>
+                        Habsiguda
+                    </div>
+                </div>
+                <div class="nxt">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-right"
+                        width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                        <polyline points="9 6 15 12 9 18"></polyline>
+                    </svg>
+                </div>
+            </div>
+        </a>
+        <a class="removeStyles" href="menu.php">
+            <div class='res-item'>
+                <div class='res-img'> <img src="assets/images/1.jpg" alt=""> </div>
+                <div class='m-3'>
+                    <h3 class='fontEB headings'> Paradise Biryani</h3>
+                    <div class='gray2 fontB'>
+                        <span> <img src="assets/images/location.svg" class='locsvg17' alt=""></span>
+                        Habsiguda
+                    </div>
+                </div>
+                <div class="nxt">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-right"
+                        width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                        <polyline points="9 6 15 12 9 18"></polyline>
+                    </svg>
+                </div>
+            </div>
+        </a>
+    </div>
+</div>
+<script>
+var searchBtn = document.getElementById('searchBtn');
+var iptoggle = document.getElementById('iptoggle');
+var parentSearch = document.getElementById('parentSearch');
+var sb_iH = searchBtn.innerHTML;
+var search = false;
+var lsvg = document.querySelector('.leftSVG');
+var rsvg = document.querySelector('.rightSVG');
+
+searchBtn.addEventListener('click', () => {
+
+
+    if (iptoggle.children[1].classList.contains('no-width')) {
+        iptoggle.children[1].style.overflow = 'visible';
+        iptoggle.children[1].classList.remove('d-none');
+        setTimeout(() => {
+            rsvg.style.borderRadius = '0 8px 8px 0';
+            lsvg.style.borderRadius = '8px 0 0 8px';
+            iptoggle.children[1].classList.remove('no-width');
+        }, 100);
+    } else {
+        iptoggle.children[1].style.overflow = 'hidden';
+        iptoggle.children[1].classList.add('no-width');
+        setTimeout(() => {
+            lsvg.style.borderRadius = rsvg.style.borderRadius = '8px'
+            iptoggle.children[1].classList.add('d-none');
+        }, 300);
+    }
+
+    if (search === false) {
+        searchBtn.innerHTML = '&times;';
+        search = true;
+        //parentSearch.style.background = '#fafafa';
+    } else if (search === true) {
+        searchBtn.innerHTML = sb_iH;
+        search = false;
+        //parentSearch.style.background = 'transparent';
+    }
+
+});
+</script>
+<script>
+var colors = ['#f4f8fe', '#f8ecff', '#fff2e5'];
+var items = document.getElementsByClassName('res-item');
+let j = 0;
+
+for (let i = 0; i < items.length; i++) {
+    if (j === colors.length) {
+        j = 0;
+    }
+    items[i].style.background = colors[j];
+    j++;
+}
+</script>
+<script>
+$(document).ready(function() {
+    var multipleCancelButton = new Choices('.searchIP', {});
+});
+</script>
+<?php include 'footer.php'?>
+</body>
+</html>

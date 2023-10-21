@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta name="viewport" content="width=device-width">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+
+<body>
+<?php include "header.php" ?>
+<style>
+    .food-val{
+        width: 2rem;
+        text-align: center;
+        border:none;
+        outline: none !important;
+        color: var(--primary)
+    }
+    .head, .foot{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    .foot{
+        margin-top: 9px;
+    }
+    .food{
+        font-family: fontR;
+        border-bottom: 1px solid rgba(0,0,0,0.05);
+        border-radius: var(--br);
+        padding: 1rem;
+        margin-top: 5px;
+    }
+    .total{
+        border-radius: var(--br);
+        background:var(--white);
+        margin: 1rem 0;
+        padding: 1rem;
+    }
+    .center-calculated{
+        width: calc(100% - 48px - 1rem);
+    }
+    .incr:active,.decr:active{
+        opacity:0.5;
+    }
+    .insCont{
+        display:flex;
+        justify-content:center;
+        flex-direction:column;
+        width:100%;
+        align-items:center;
+        border-radius:8px;
+        padding:1em;
+        background:#f1f7fa;
+    }
+    .cook-ins-box{
+        display:flex;
+        align-items:center;
+        padding:0;
+        width:100%;
+    }
+    .cook-ins-box p{
+        margin-bottom:0;
+    }
+    .cookIcons{
+        margin:0 1em;
+    }
+    .textBtnBox{
+        display:none;
+        width:90%;
+        align-items:flex-end;
+        justify-content:space-between;
+    }
+    .insInp{
+        width:70%;
+        border:none;
+        border-bottom:1px solid #505050;
+        background:transparent;
+        margin-top:1em;
+        resize:none;
+    }
+    .insInp:focus{
+        outline:none;
+    }
+    .addInsBtn{
+        border:none;
+        background:lightgray;
+        color:#505050;
+        border-radius:8px;
+        padding:0 1em;
+    }
+    .instructionsBox{
+        display:none;
+        width: 90%;
+        margin-top: 0.5em;
+        font-family: 'fontB';
+    }
+    .couponCont{
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        border-radius: 8px;
+        padding: 1em;
+        padding-left:2em;
+        background: #fef4e4;
+        margin-top:0.5em;
+    }
+    .coup1{
+        display:flex;
+        align-items:center;
+        color:#505050;
+    }
+    .coup1 svg{
+        margin-right:1em;
+    }
+    .applyCouponTitle{
+        margin-bottom:0;
+    }
+    .coupons-container{
+        display:none;
+        padding:1em;
+    }
+    .coupons1{
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+    }
+    .coupons1 h3{
+        margin-bottom:0;
+    }
+    .coupons2{
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        margin-top:1em;
+    }
+    .coupons2Box1{
+        width:70%;
+    }
+    .coupons2Box2{
+        width:30%;
+        text-align:center;
+    }
+    .couponsSearch{
+        border:none;
+        background:#fafafa;
+        border-radius:16px;
+        height:48px;
+        width:100%;
+        padding-left:1em;
+        color:#a9a9a9;
+    }
+    .couponsSearch::placeholder{
+        color:#a9a9a9;
+    }
+    .couponsSearch:focus{
+        outline:none;
+    }
+    .couponsBtn{
+        border:none;
+        background:#fef4e4;
+        height:48px;
+        width:80%;
+        border-radius:16px;
+        color:#75361f;
+        font-family:'fontB';
+    }
+    .couponsApplyBtn{
+        border:none;
+        background:#f1f7fa;
+        height:48px;
+        width:80%;
+        border-radius:16px;
+        color:#263238;
+        font-family:'fontB';
+    }
+    .cpns-box{
+        margin-top: 1em;
+        background: #ffffff;
+        border-radius: 12px;
+        padding: 1em;
+        box-shadow: 0 4px 15px 0 rgba(204, 204, 204, 0.3);
+    }
+    .cpns-box p{
+        margin-bottom:0.2em;
+    }
+    .coup-details-2{
+        font-size:14px;
+    }
+    .more-coup-btn{
+        width: max-content;
+        border: none;
+        background: transparent;
+        color: #505050;
+    }
+    .couponsApplyBtnBox{
+        text-align:end;
+    }
+    .couponsApplyBtn:active{
+        opacity:0.5;
+    }
+    .cpns-box h3{
+        font-size:18px;
+    }
+    .couponsAppliedBtn{
+        border: none;
+        background: #fef4e4;
+        color: #75361f;
+        height: 48px;
+        border-radius: 12px;
+        width: 80%;
+        font-family: 'fontB';
+    }
+    .couponValue{
+        color:#505050;
+    }
+</style>
+<div class="cowk-container">
+    <div class="searchBox d-flex align-items-center">
+        <a href="/menu-1">
+        <div class='svg-holder'>
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                <polyline points="15 6 9 12 15 18"></polyline>
+            </svg>
+        </div>
+        </a>
+        <div class='center-calculated'>
+            <h3 class='text-center fontEB'> Your Items</h3>
+            <input class='d-none' type="text">
+        </div>
+    </div>
+    <div class=''>
+        <div class='food'>
+            <div class="head">
+                <div> <div class="nonveg"></div> Chicken Dum Biryani</div>
+                <button class='bill-btn addBtnClass d-none'>
+                    Add
+                </button>
+                <div>
+                    <button class="decr">
+                        -
+                    </button>
+                    <input type="number" readonly="" class="food-val" value='1'> 
+                    <button class="incr">
+                        +
+                    </button>
+                </div> 
+            </div>
+            <div class="foot">
+                <div class='gray2'> &#8377;180</div> 
+                <div class='heading'> &#8377;360</div>
+            </div>
+        </div>
+        <div class='food'>
+            <div class="head">
+                <div> <div class="nonveg"></div> Chicken Dum Biryani</div>
+                <button class='d-none bill-btn addBtnClass'>
+                    Add
+                </button>
+                <div class=''>
+                    <button class="decr">
+                        -
+                    </button>
+                    <input type="number" readonly="" class="food-val" value='1'> 
+                    <button class="incr">
+                        +
+                    </button>
+                </div> 
+            </div>
+            <div class="foot">
+                <div class='gray2'> &#8377;180</div> 
+                <div class='heading'> &#8377;360</div>
+            </div>
+        </div>
+        <div class="insCont">
+            <div class="cook-ins-box" onclick="showIns();">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-notes cookIcons" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="#505050" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                    <rect x="5" y="3" width="14" height="18" rx="2"></rect>
+                    <line x1="9" y1="7" x2="15" y2="7"></line>
+                    <line x1="9" y1="11" x2="15" y2="11"></line>
+                    <line x1="9" y1="15" x2="13" y2="15"></line>
+                </svg>
+                <p class="headings">Add Cooking Instructions</p>
+            </div>
+            <div class="instructionsBox">
+                <p class="instructText"></p>
+            </div>
+            <div class="textBtnBox">
+                <textarea type="text" class="insInp" placeholder="add your instruction here" rows="1" ></textarea>
+                <button type="button" class="addInsBtn" onclick="addInstruction()">Add</button>        
+            </div>
+        </div>
+        <div class="couponCont">
+            <div class="coup1">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-discount-2" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="#505050" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                    <line x1="9" y1="15" x2="15" y2="9"></line>
+                    <circle cx="9.5" cy="9.5" r=".5" fill="currentColor"></circle>
+                    <circle cx="14.5" cy="14.5" r=".5" fill="currentColor"></circle>
+                    <path d="M5 7.2a2.2 2.2 0 0 1 2.2 -2.2h1a2.2 2.2 0 0 0 1.55 -.64l.7 -.7a2.2 2.2 0 0 1 3.12 0l.7 .7a2.2 2.2 0 0 0 1.55 .64h1a2.2 2.2 0 0 1 2.2 2.2v1a2.2 2.2 0 0 0 .64 1.55l.7 .7a2.2 2.2 0 0 1 0 3.12l-.7 .7a2.2 2.2 0 0 0 -.64 1.55v1a2.2 2.2 0 0 1 -2.2 2.2h-1a2.2 2.2 0 0 0 -1.55 .64l-.7 .7a2.2 2.2 0 0 1 -3.12 0l-.7 -.7a2.2 2.2 0 0 0 -1.55 -.64h-1a2.2 2.2 0 0 1 -2.2 -2.2v-1a2.2 2.2 0 0 0 -.64 -1.55l-.7 -.7a2.2 2.2 0 0 1 0 -3.12l.7 -.7a2.2 2.2 0 0 0 .64 -1.55v-1"></path>
+                </svg>
+                <p class="applyCouponTitle">Apply Coupon</p>
+            </div>
+            <div class="coupon2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-right" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="#505050" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                <polyline points="9 6 15 12 9 18"></polyline>
+            </svg>
+            </div>
+
+
+        </div>
+        <div class="total fontR">
+            <div class="head">
+                <div> Items Total</div>
+                <div> &#8377;510</div>
+            </div>
+            <div class="foot">
+                <div>Taxes</div>
+                <div>&#8377;25</div>
+            </div>
+            <div class='seperator'>
+                 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+            </div>
+            <div>
+                <div class='my-3'> Grand Total</div>
+                <h1 class='fontEB primary'>&#8377;535</h1>
+            </div>
+        </div>
+        <div class="placeOrderBox">
+            <button type="button" class="cowk-btn w-100">Place Order</button>
+        </div>
+    </div>
+</div>
+<div class="coupons-container">
+    <div class="coupons1">
+        <div class='svg-holder backBtn'>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                    <polyline points="15 6 9 12 15 18"></polyline>
+                </svg>
+        </div>
+        <div class="coupons1-title">
+            <h3 class="fontEB headings">Available Offers</h3>    
+        </div>
+    </div>
+    <div class="coupons2Cont">
+        <div class="coupons2">
+            <div class="coupons2Box1">
+                <input type="text" class="couponsSearch" placeholder="Search Promo Codes" autofocus>
+            </div>
+            <div class="coupons2Box2">
+                <button class="couponsBtn" >Apply</button>
+            </div>
+        </div>
+        <div class="coupons-cards">
+            <div class="cpns-box">
+                <div class="row">
+                    <div class="col-8">
+                        <h3 class="fontB headings">WELCOME10</h3>
+                        <p class="coup-details-1">Get 10% OFF on your bill</p>
+                        <input class="coup-value" hidden readonly type="number" value="50">
+                    </div>
+                    <div class="col-4 couponsApplyBtnBox">
+                    <button class="couponsApplyBtn" onclick="applyCoupon(this)" >Apply</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <p class="coup-details-2">Maximum discount upto ₹100 on orders above ₹700</p>
+                    <button type="button" class="more-coup-btn">+ More</button>
+                </div>
+            </div>
+            <div class="cpns-box">
+                <div class="row">
+                    <div class="col-8">
+                        <h3 class="fontB headings">WELCOME10</h3>
+                        <p class="coup-details-1">Get 10% OFF on your bill</p>
+                        <input class="coup-value" hidden readonly type="number" value="150">
+                    </div>
+                    <div class="col-4 couponsApplyBtnBox">
+                    <button class="couponsApplyBtn" onclick="applyCoupon(this)" >Apply</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <p class="coup-details-2">Maximum discount upto ₹100 on orders above ₹700</p>
+                    <button type="button" class="more-coup-btn">+ More</button>
+                </div>
+            </div>
+            <div class="cpns-box">
+                <div class="row">
+                    <div class="col-8">
+                        <h3 class="fontB headings">WELCOME10</h3>
+                        <p class="coup-details-1">Get 10% OFF on your bill</p>
+                        <input class="coup-value" hidden readonly type="number" value="250">
+                    </div>
+                    <div class="col-4 couponsApplyBtnBox">
+                    <button class="couponsApplyBtn" onclick="applyCoupon(this)" >Apply</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <p class="coup-details-2">Maximum discount upto ₹100 on orders above ₹700</p>
+                    <button type="button" class="more-coup-btn">+ More</button>
+                </div>
+            </div>
+            <div class="cpns-box">
+                <div class="row">
+                    <div class="col-8">
+                        <h3 class="fontB headings">WELCOME10</h3>
+                        <p class="coup-details-1">Get 10% OFF on your bill</p>
+                        <input class="coup-value" hidden readonly type="number" value="350">
+                    </div>
+                    <div class="col-4 couponsApplyBtnBox">
+                    <button class="couponsApplyBtn" onclick="applyCoupon(this)" >Apply</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <p class="coup-details-2">Maximum discount upto ₹100 on orders above ₹700</p>
+                    <button type="button" class="more-coup-btn">+ More</button>
+                </div>
+            </div>
+            <div class="cpns-box">
+                <div class="row">
+                    <div class="col-8">
+                        <h3 class="fontB headings">WELCOME10</h3>
+                        <p class="coup-details-1">Get 10% OFF on your bill</p>
+                        <input class="coup-value" hidden readonly type="number" value="450">
+                    </div>
+                    <div class="col-4 couponsApplyBtnBox">
+                    <button class="couponsApplyBtn" onclick="applyCoupon(this)" >Apply</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <p class="coup-details-2">Maximum discount upto ₹100 on orders above ₹700</p>
+                    <button type="button" class="more-coup-btn">+ More</button>
+                </div>
+            </div>
+            <div class="cpns-box">
+                <div class="row">
+                    <div class="col-8">
+                        <h3 class="fontB headings">WELCOME10</h3>
+                        <p class="coup-details-1">Get 10% OFF on your bill</p>
+                        <input class="coup-value" hidden readonly type="number" value="540">
+                    </div>
+                    <div class="col-4 couponsApplyBtnBox">
+                    <button class="couponsApplyBtn" onclick="applyCoupon(this)" >Apply</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <p class="coup-details-2">Maximum discount upto ₹100 on orders above ₹700</p>
+                    <button type="button" class="more-coup-btn">+ More</button>
+                </div>
+            </div>
+            <div class="cpns-box">
+                <div class="row">
+                    <div class="col-8">
+                        <h3 class="fontB headings">WELCOME10</h3>
+                        <p class="coup-details-1">Get 10% OFF on your bill</p>
+                        <input class="coup-value" hidden readonly type="number" value="350">
+                    </div>
+                    <div class="col-4 couponsApplyBtnBox">
+                    <button class="couponsApplyBtn" onclick="applyCoupon(this)" >Apply</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <p class="coup-details-2">Maximum discount upto ₹100 on orders above ₹700</p>
+                    <button type="button" class="more-coup-btn">+ More</button>
+                </div>
+            </div>
+            <div class="cpns-box">
+                <div class="row">
+                    <div class="col-8">
+                        <h3 class="fontB headings">WELCOME10</h3>
+                        <p class="coup-details-1">Get 10% OFF on your bill</p>
+                        <input class="coup-value" hidden readonly type="number" value="540">
+                    </div>
+                    <div class="col-4 couponsApplyBtnBox">
+                    <button class="couponsApplyBtn" onclick="applyCoupon(this)" >Apply</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <p class="coup-details-2">Maximum discount upto ₹100 on orders above ₹700</p>
+                    <button type="button" class="more-coup-btn">+ More</button>
+                </div>
+            </div>
+            <div class="cpns-box">
+                <div class="row">
+                    <div class="col-8">
+                        <h3 class="fontB headings">WELCOME10</h3>
+                        <p class="coup-details-1">Get 10% OFF on your bill</p>
+                        <input class="coup-value" hidden readonly type="number" value="520">
+                    </div>
+                    <div class="col-4 couponsApplyBtnBox">
+                    <button class="couponsApplyBtn" onclick="applyCoupon(this)" >Apply</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <p class="coup-details-2">Maximum discount upto ₹100 on orders above ₹700</p>
+                    <button type="button" class="more-coup-btn">+ More</button>
+                </div>
+            </div>
+            <div class="cpns-box">
+                <div class="row">
+                    <div class="col-8">
+                        <h3 class="fontB headings">WELCOME10</h3>
+                        <p class="coup-details-1">Get 10% OFF on your bill</p>
+                        <input class="coup-value" hidden readonly type="number" value="510">
+                    </div>
+                    <div class="col-4 couponsApplyBtnBox">
+                    <button class="couponsApplyBtn" onclick="applyCoupon(this)" >Apply</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <p class="coup-details-2">Maximum discount upto ₹100 on orders above ₹700</p>
+                    <button type="button" class="more-coup-btn">+ More</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<script>
+    var decr = document.getElementsByClassName('decr');
+    var incr =  document.getElementsByClassName('incr');
+    var addBtnClass = document.getElementsByClassName('addBtnClass');
+    for(let i=0;i<addBtnClass.length;i++){
+        addBtnClass[i].nextElementSibling.children[1].disabled=true;
+
+        addBtnClass[i].addEventListener('click',()=>{
+            addBtnClass[i].classList.add('d-none');
+            addBtnClass[i].nextElementSibling.classList.remove('d-none');
+            addBtnClass[i].nextElementSibling.children[1].value=1;
+            addBtnClass[i].nextElementSibling.children[1].disabled=false;
+        });
+        decr[i].addEventListener('click',()=>{
+            decr[i].nextElementSibling.value--;
+            if(decr[i].nextElementSibling.value==0){
+                let toRemove = decr[i].parentElement.parentElement.parentElement
+                toRemove.classList.add('d-none');
+                decr = document.getElementsByClassName('decr');
+                incr =  document.getElementsByClassName('incr');
+                addBtnClass = document.getElementsByClassName('addBtnClass');
+            }
+        });
+        incr[i].addEventListener('click',()=>{
+            incr[i].previousElementSibling.value++;
+        });
+    }
+    function showIns(){
+        $(".textBtnBox").toggle(300).css('display','flex');
+    }
+    function addInstruction(){
+        var ins = document.querySelector(".insInp").value;
+            ins.trim();
+            document.querySelector(".instructText").innerHTML=ins;
+            if(ins.length>0){
+                $(".instructionsBox").show(300);    
+           
+            }
+            else
+                $(".instructionsBox").hide(300);
+            $(".textBtnBox").hide(300);
+    }
+    $(".instructionsBox").on("click",function(){
+        $(".textBtnBox").toggle(300);
+    });
+    $(".couponCont").on("click",function(){
+        $(".cowk-container").slideUp(400);
+        $(".coupons-container").show(400);
+    })
+    $(".backBtn").on("click",function(){
+        $(".coupons-container").slideUp(400);
+        $(".cowk-container").show(400);
+    
+    });
+    function applyCoupon(e){
+        // var prevBtns= document.getElementsByClassName("couponsAppliedBtn");
+        // for(let i =0; i < prevBtns.length;i++){
+        //     // prevBtns[i].classList.remove("couponsAppliedBtn");
+        //     // prevBtns[i].classList.add("couponsApplyBtn");    
+        // }
+        e.classList.remove("couponsApplyBtn");
+        e.classList.add("couponsAppliedBtn");
+        $(".couponsAppliedBtn").html("Applied");
+        var parent1 = e.parentElement;
+        var parent2 = parent1.previousElementSibling;
+        var couponContent1 = parent2.querySelector(".headings").textContent;
+        var couponContent2 = parent2.querySelector(".coup-details-1").textContent;
+        var couponContent3 = parent2.querySelector(".coup-value").value;  
+        $(".applyCouponTitle").html(couponContent1 + "<br>"+couponContent2);
+        $(".coupon2").empty();
+        var cv = document.createElement("p");
+        cv.classList.add("couponValue");
+        cv.textContent = "- ₹ "+couponContent3;
+        $(".coupon2").html(cv);
+        $(".coupons-container").slideUp(600);
+        $(".cowk-container").show(600);
+    }
+    
+</script>
+<?php include "footer.php" ?>
+</body>
+</html>

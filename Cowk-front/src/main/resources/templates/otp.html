@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta name="viewport" content="width=device-width">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+
+<body>
+	<?php include "header.php" ?>
+	<style>
+		.optTitle {
+			padding: 0;
+		}
+
+		.otpRow1 {
+			margin-bottom: 2em;
+		}
+
+		.otp-desc {
+			padding: 0;
+		}
+
+		.otpCol {
+			padding: 0;
+		}
+
+		.otpCol1 {
+			padding: 0;
+			text-align: right;
+		}
+
+		.user-num {
+			color: var(--primary);
+		}
+
+		.otpInput {
+			border: none;
+			border-bottom: 1px solid gray;
+			width: 60px;
+			margin-right: 1em;
+			font-size: 30px;
+			text-align: center;
+		}
+
+		.otpInput:focus {
+			outline: none;
+		}
+
+		.otpInputBorder {
+			border-bottom: 1px solid var(--primary);
+		}
+
+		.otpRow4 {
+			display: flex;
+			flex-wrap: nowrap;
+		}
+
+		.otpRow1 {
+			margin-bottom: 3em;
+		}
+
+		.otpRow3 {
+			margin-bottom: 2em;
+		}
+
+		.otpRow4 {
+			margin-bottom: 3em;
+			justify-content: center;
+		}
+
+		.otpContainer {
+			padding: 1em 2em;
+		}
+
+		.resendBtn {
+			border: none;
+			background: transparent;
+			width: max-content;
+			color: var(--bs-gray);
+		}
+
+		.resendBtn:focus {
+			outline: none;
+		}
+
+		.resendBtn:active {
+			opacity: 0.7;
+		}
+
+		.otpTimer {
+			color: var(--bs-gray);
+		}
+
+		.otpBtn {
+			width: 90;
+			display: flex;
+			justify-content: Center;
+			align-items: Center;
+			text-decoration: none;
+		}
+
+		.otpBtn:active {
+			color: white;
+			text-decoration: none;
+		}
+
+		.otpBtn:focus {
+			color: white;
+			text-decoration: none;
+		}
+
+		.otpBtn:hover {
+			color: white;
+			text-decoration: none;
+		}
+	</style>
+	<div class="container cowk-container otpContainer">
+		<div class="row otpRow1">
+			<div class="svg-holder">
+				<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24"
+					height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+					stroke-linecap="round" stroke-linejoin="round">
+					<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+					<polyline points="15 6 9 12 15 18"></polyline>
+				</svg>
+			</div>
+		</div>
+		<div class="row otpRow2">
+			<h2 class="optTitle">
+				Verify OTP
+			</h2>
+		</div>
+		<div class="row otpRow3">
+			<div class="col-9 otpCol">
+				<p class="otp-desc">Sent to <span id="mobile" class="user-num">+91 </span></p>
+			</div>
+			<div class="col-3 otpCol1">
+				<p class="otpTimer"></p>
+			</div>
+		</div>
+		<form id="otpForm"  action="/validate-otp" method="POST">
+			<div class="row otpRow4">
+				<input class="otpInput otpInp1" id="otp1" name="otp1" type="number" maxlength="1" autofocus
+					onkeyup="changefocus(this);" onkeydown="removefocus(this);"
+					oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);">
+				<input class="otpInput otpInp2" id="otp2" name="otp2" type="number" maxlength="1" onkeyup="changefocus(this);"
+					onkeydown="removefocus(this);"
+					oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);">
+				<input class="otpInput otpInp3" id="otp3" name="otp3" type="number" maxlength="1" onkeyup="changefocus(this);"
+					onkeydown="removefocus(this);"
+					oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);">
+				<input class="otpInput otpInp4" id="otp4" name="otp4" type="number" maxlength="1" onkeyup="changefocus(this);"
+					onkeydown="removefocus(this);"
+					oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);">
+			</div>
+			<div class="row">
+				<input type="submit" class="cowk-btn otpBtn" value="Verify">
+			</div>
+		</form>
+	</div>
+
+	<script>
+		mobile = sessionStorage.getItem("mobile");
+		span = document.getElementById("mobile");
+		txt = document.createTextNode(mobile);
+		span.appendChild(txt);
+
+
+		function changefocus(e) {
+			var x = e.id;
+			var y = document.getElementById(x).value;
+
+
+			if (x == "otp4") {
+				e.classList.add("otpInputBorder");
+				return false;
+			}
+			if (y.length == 1) {
+				e.classList.add("otpInputBorder");
+				e.nextElementSibling.focus();
+			}
+		}
+
+		function removefocus(e) {
+			var x = e.id;
+			var y = document.getElementById(x).value;
+			var key = event.keyCode || event.charCode;
+			if (key == 8 || key == 46) {
+				if (y.length == 0) {
+					e.classList.remove("otpInputBorder");
+					e.previousElementSibling.focus();
+				}
+			}
+		}
+		$(document).ready(function () {
+			timer();
+			function timer() {
+				var sec = 30;
+				var timer = setInterval(function () {
+					document.querySelector('.otpTimer').innerHTML = '00 : ' + sec;
+					sec--;
+					if (sec == 0) {
+
+						clearInterval(timer);
+						// showResend();
+						document.querySelector('.otpTimer').innerHTML = '<button class="resendBtn">Resend OTP</button> '
+					}
+				}, 1000);
+			}
+			function showResend() {
+				var x = document.getElementsByClassName(".otpTimer");
+				var btn = document.createElement("button");
+				btn.classList.add('resendBtn');
+				btn.id = "resend-otp";
+				x.innerHTML = btn;
+			}
+		});
+	</script>
+
+	<?php include "footer.php" ?>
+</body>
+
+</html>

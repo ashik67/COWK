@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta name="viewport" content="width=device-width">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+
+<body>
+<?php include "header.php" ?>
+<div class="cowk-container pr-0">
+    <h3 class='fontB headings'>
+        Waiter's Dashboard
+    </h3>
+    <div class='holdo1c'>
+        <div role='button' class='o1c fontB activeo1c'>Orders</div>
+        <div role='button' class='o1c fontB'>Completed</div>
+    </div>
+    <div>
+        <div class="o1c_tog">
+            <div>
+                <div id="card1" class="card-order">
+                    <div>
+                        <div class='gray2 fontB'>Table number</div>
+                        <h1 class="mb-0 fontEB primary"> 69</h1>
+                    </div>
+                    <div>
+                        <div class='svg_odb'></div>
+                        <div class='cowk-label-ta'></div>
+                    </div>
+                </div>
+                <div class="status status-accept"></div>
+            </div>
+            <div>
+                <div class="card-order">
+                    <div>
+                        <div class='gray2 fontB'>Table number</div>
+                        <h1 class="mb-0 fontEB primary"> 69</h1>
+                    </div>
+                    <div>
+                        <div class='svg_odb'></div>
+                        <div class='cowk-label-ta'></div>
+                    </div>
+                </div>
+                <div class="status status-order"></div>
+            </div>
+            <div>
+                <div class="card-order">
+                    <div>
+                        <div class='gray2 fontB'>Table number</div>
+                        <h1 class="mb-0 fontEB primary"> 69</h1>
+                    </div>
+                    <div>
+                        <div class='svg_odb'></div>
+                        <div class='cowk-label-ta '></div>
+                    </div>
+                </div>
+                <div class="status status-in-q"></div>
+            </div>
+            <div>
+                <div class="card-order">
+                    <div>
+                        <div class='gray2 fontB'>Table number</div>
+                        <h1 class="mb-0 fontEB primary"> 69</h1>
+                    </div>
+                    <div>
+                        <div class='svg_odb'></div>
+                        <div class='cowk-label-ta'></div>
+                    </div>
+                </div>
+                <div class="status status-prep"></div>
+            </div>
+            <div>
+                <div id="card3" class="card-order">
+                    <div>
+                        <div class='gray2 fontB'>Table number</div>
+                        <h1 class="mb-0 fontEB primary"> 69</h1>
+                    </div>
+                    <div>
+                        <div class='svg_odb'></div>
+                        <div class='cowk-label-ta food-ready'></div>
+                    </div>
+                </div>
+                <div class="status status-ok"></div>
+            </div>
+            <div>
+                <div id="card4" class="card-order">
+                    <div>
+                        <div class='gray2 fontB'>Table number</div>
+                        <h1 class="mb-0 fontEB primary"> 69</h1>
+                    </div>
+                    <div>
+                        <div class='svg_odb'></div>
+                        <div class='cowk-label-ta d-none'></div>
+                    </div>
+                </div>
+                <div class="status status-served"></div>
+            </div>
+            <div>
+                <div id="card5" class="card-order">
+                    <div>
+                        <div class='gray2 fontB'>Table number</div>
+                        <h1 class="mb-0 fontEB primary"> 69</h1>
+                    </div>
+                    <div>
+                        <div class='svg_odb'></div>
+                        <div class='cowk-label-ta d-none'></div>
+                    </div>
+                </div>
+                <div class="status status-complete"></div>
+            </div>
+        </div>
+        <div class="o1c_tog d-none">
+            <div class="card-comp">
+                <div>
+                    <div class='heading'>Table number</div>
+                    <h1 class="fontEB primary"> 69</h1>
+                </div>
+                <div class='sm-data-waiter'>
+                    <div>19 October  2021</div>
+                    <div>4:20pm</div>
+                    <div class='mt-1 vblack fontB'>#42069</div>
+                </div>
+            </div>
+            <div class="card-comp">
+                <div>
+                    <div class='heading'>Table number</div>
+                    <h1 class="fontEB primary"> 69</h1>
+                </div>
+                <div class='sm-data-waiter'>
+                    <div>19 October  2021</div>
+                    <div>4:20pm</div>
+                    <div class='mt-1 vblack fontB'>#42069</div>
+                </div>
+            </div>
+            <div class="card-comp">
+                <div>
+                    <div class='heading'>Table number</div>
+                    <h1 class="fontEB primary"> 69</h1>
+                </div>
+                <div class='sm-data-waiter'>
+                    <div>19 October  2021</div>
+                    <div>4:20pm</div>
+                    <div class='mt-1 vblack fontB'>#42069</div>
+                </div>
+            </div>
+        </div>
+    </div>  
+</div>
+<script>
+    var o1c = document.getElementsByClassName('o1c');
+    var o1c_tog = document.getElementsByClassName('o1c_tog');
+
+    if(o1c_tog[0].childElementCount===0){
+        o1c_tog[0].innerHTML = `<h3 class='centeredMPTpg fontB'>No orders for now</h3>`
+    }
+    for(let i=0; i<o1c.length; i++){
+        o1c[i].addEventListener('click',()=>{
+            for(let j=0; j<o1c.length; j++){
+                o1c[j].classList.remove('activeo1c');
+                o1c_tog[j].classList.add('d-none');
+            }
+            o1c[i].classList.add('activeo1c');
+            o1c_tog[i].classList.remove('d-none');
+        })
+    }
+</script>
+<script>
+
+    var cardStatus = document.querySelectorAll('.card-order + .status');
+    for(let i=0; i<cardStatus.length; i++){
+        if(cardStatus[i].classList.contains('status-accept')){
+            cardStatus[i].classList.add('w-23status');
+            cardStatus[i].innerText = 'Accept';
+
+            cardStatus[i].previousElementSibling.children[1].children[0].innerHTML=``;
+            //cardStatus[i].previousElementSibling.children[1].children[1].innerHTML=``;
+
+        }
+        else if(cardStatus[i].classList.contains('status-order')){
+            cardStatus[i].previousElementSibling.children[1].children[0].innerHTML=`
+                <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><rect fill="none" height="24" width="24"/><path d="M19,3H4.99C3.89,3,3,3.9,3,5l0.01,14c0,1.1,0.89,2,1.99,2h10l6-6V5C21,3.9,20.1,3,19,3z M8,8h8c0.55,0,1,0.45,1,1v0 c0,0.55-0.45,1-1,1H8c-0.55,0-1-0.45-1-1v0C7,8.45,7.45,8,8,8z M11,14H8c-0.55,0-1-0.45-1-1v0c0-0.55,0.45-1,1-1h3 c0.55,0,1,0.45,1,1v0C12,13.55,11.55,14,11,14z M14,19.5V15c0-0.55,0.45-1,1-1h4.5L14,19.5z"/></svg>
+            `;
+            cardStatus[i].previousElementSibling.children[1].children[1].classList.add('take-order');
+            cardStatus[i].previousElementSibling.children[1].children[1].innerHTML=`Take Order`;
+
+        }
+        else if(cardStatus[i].classList.contains('status-in-q')){
+            cardStatus[i].previousElementSibling.children[1].children[0].innerHTML=`
+            <svg height=24px width=24px fill=none stroke= black xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 24 24" style="enable-background:new 0 0 24 24;" xml:space="preserve">
+                <path d="M3.4,2.7C3.4,2.3,3.7,2,4.1,2h15.7c0.4,0,0.7,0.3,0.7,0.7s-0.3,0.7-0.7,0.7h-1.4v1.4c0,2.5-1.4,4.7-3.7,5.8  c-0.4,0.2-0.6,0.5-0.6,0.8v1c0,0.3,0.2,0.6,0.6,0.8c2.2,1.1,3.7,3.3,3.7,5.8v1.4h1.4c0.4,0,0.7,0.3,0.7,0.7c0,0.4-0.3,0.7-0.7,0.7  H4.1c-0.4,0-0.7-0.3-0.7-0.7c0-0.4,0.3-0.7,0.7-0.7h1.4v-1.4c0-2.5,1.4-4.7,3.7-5.8c0.4-0.2,0.6-0.5,0.6-0.8v-1  c0-0.3-0.2-0.6-0.6-0.8C7,9.6,5.6,7.3,5.6,4.9V3.4H4.1C3.7,3.4,3.4,3.1,3.4,2.7z M7,3.4v1.4c0,1.9,1.1,3.7,2.8,4.5  c0.8,0.4,1.4,1.1,1.4,2.1v1c0,1-0.7,1.8-1.4,2.1C8.1,15.5,7,17.2,7,19.1v1.4h10v-1.4c0-1.9-1.1-3.7-2.8-4.5  c-0.8-0.4-1.4-1.1-1.4-2.1v-1c0-1,0.7-1.8,1.4-2.1C15.9,8.5,17,6.8,17,4.9V3.4H7z"/>
+            </svg>
+            `;
+            cardStatus[i].previousElementSibling.children[1].children[1].classList.add('order-in-q');
+            cardStatus[i].previousElementSibling.children[1].children[1].innerHTML=`Order in Kitchen`;
+        }
+        else if(cardStatus[i].classList.contains('status-prep')){
+            cardStatus[i].previousElementSibling.children[1].children[0].innerHTML=`
+            <svg height=24px width=24px fill=none stroke= black xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 24 24" style="enable-background:new 0 0 24 24;" xml:space="preserve">
+                <g>
+                    <path d="M20.1,11.8c0.2,0,0.4,0,0.6,0c0.7,0.1,1.3,0.6,1.3,1.3c0,0.4,0,0.7,0,1.1c-0.1,0.7-0.7,1.1-1.4,1.1c-0.1,0-0.3,0-0.5,0   c0,0.1,0,0.2,0,0.3c0,0.9,0,1.8,0,2.7c0,1.1-1,2-2.1,2.1c-0.2,0-0.3,0-0.5,0c-3.8,0-7.5,0-11.3,0c-1.1,0-2.1-0.7-2.3-1.8   c0-0.2,0-0.4,0-0.6c0-0.8,0-1.6,0-2.4c0-0.1,0-0.2,0-0.3c-0.2,0-0.3,0-0.4,0c-0.9,0-1.5-0.6-1.5-1.4c0-0.3,0-0.6,0-0.9   c0.1-0.7,0.7-1.2,1.5-1.2c0.1,0,0.2,0,0.4,0c0-0.2,0-0.4,0-0.7s0-0.6,0-0.9c0-0.3,0.2-0.5,0.6-0.5h0.1c4.9,0,9.9,0,14.8,0   c0.5,0,0.7,0.2,0.7,0.7C20.1,10.9,20.1,11.3,20.1,11.8z M5,10.8c0,0.1,0,0.1,0,0.2c0,2.4,0,4.7,0,7.1c0,0.1,0,0.3,0,0.4   c0.2,0.6,0.6,0.9,1.3,0.9c3.8,0,7.6,0,11.4,0c0.9,0,1.4-0.5,1.4-1.4c0-2.3,0-4.6,0-7c0-0.1,0-0.1,0-0.2C14.3,10.8,9.7,10.8,5,10.8z    M3.9,14.3c0-0.5,0-1,0-1.4c-0.6-0.2-0.9,0-0.9,0.6l0,0C3,14.3,3.3,14.3,3.9,14.3L3.9,14.3z M20.1,14.3c0.2,0,0.3,0,0.5,0   s0.4-0.2,0.4-0.4c0-0.2,0-0.5,0-0.7s-0.1-0.3-0.3-0.4c-0.2,0-0.3,0-0.5,0C20.1,13.3,20.1,13.8,20.1,14.3z"/>
+                    <path d="M13.8,5.1c1.1-0.3,2.2-0.5,3.3-0.8c0.8-0.2,1.5-0.4,2.3-0.5C19.7,3.7,20,3.9,20,4.2c0.1,0.3-0.1,0.6-0.5,0.7   C14.7,6,9.9,7.1,5,8.3C4.7,8.4,4.4,8.3,4.3,8C4.2,7.8,4.2,7.5,4.5,7.4c0.1-0.1,0.2-0.1,0.3-0.1C6.6,6.9,8.3,6.5,10.1,6   c0,0,0.1,0,0.2,0c0-0.2-0.1-0.3-0.1-0.5c-0.1-0.8,0.3-1.5,1.1-1.7c0.4-0.1,0.8-0.3,1.2-0.2c0.6,0.1,1,0.6,1.2,1.2   C13.7,4.9,13.7,5,13.8,5.1L13.8,5.1z M11.3,5.7c0.5-0.1,0.9-0.2,1.4-0.3c0-0.1-0.1-0.3-0.1-0.4c-0.1-0.3-0.3-0.4-0.6-0.3   c0,0-0.1,0-0.1,0C11.1,4.8,11.2,5.1,11.3,5.7L11.3,5.7z"/>
+                    <path d="M19.7,8.7c-0.8,0-1.5-0.7-1.5-1.5s0.7-1.5,1.5-1.5s1.5,0.7,1.5,1.5S20.5,8.7,19.7,8.7z M19.7,7.7c0.2,0,0.5-0.2,0.5-0.4   S20,6.8,19.7,6.8S19.2,7,19.2,7.3C19.2,7.5,19.4,7.7,19.7,7.7z"/>
+                    <path d="M14,8.6c0.1-1,0.8-1.7,1.8-1.7c0.9,0,1.7,0.7,1.8,1.7c0,0.3-0.2,0.6-0.5,0.6S16.6,9,16.5,8.7c0-0.4-0.3-0.7-0.7-0.7   c-0.4,0-0.7,0.3-0.8,0.7c0,0.1,0,0.2-0.1,0.3c-0.1,0.2-0.4,0.3-0.6,0.3C14.1,9.1,14,8.9,14,8.6z"/>
+                </g>
+                </svg>
+            `;
+            cardStatus[i].previousElementSibling.children[1].children[1].classList.add('prep-order');
+            cardStatus[i].previousElementSibling.children[1].children[1].innerHTML=`Preparing order`;
+        }
+        else if(cardStatus[i].classList.contains('status-ok')){
+            cardStatus[i].classList.add('w-23status');
+            cardStatus[i].innerText = 'Ok';
+            cardStatus[i].previousElementSibling.children[1].children[0].innerHTML=``;
+            cardStatus[i].previousElementSibling.children[1].children[1].innerHTML=``;
+        }
+        else if(cardStatus[i].classList.contains('status-served')){
+            cardStatus[i].classList.add('w-23status');
+            cardStatus[i].innerText = 'Served';
+            cardStatus[i].previousElementSibling.children[1].children[0].innerHTML=``;
+            cardStatus[i].previousElementSibling.children[1].children[1].innerHTML=``;
+        }
+        else if(cardStatus[i].classList.contains('status-complete')){
+            cardStatus[i].classList.add('w-23status');
+            cardStatus[i].innerText = 'Complete';
+            cardStatus[i].previousElementSibling.children[1].children[0].innerHTML=``;
+            cardStatus[i].previousElementSibling.children[1].children[1].innerHTML=``;
+        }
+    }
+</script>
+<?php include "footer.php" ?>
+</body>
+</html>

@@ -1,0 +1,1120 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta name="viewport" content="width=device-width">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+
+<body>
+	<?php include 'header.php'?>
+	<script src="assets/js/scroll.js"></script>
+	<style>
+		.waiter-icon {
+			position: relative;
+			top: -2px;
+		}
+
+		.borderSpanIcon {
+			border-right: 0px solid var(--primary) !important;
+
+		}
+
+		.cover {
+			position: absolute;
+			height: 15.5px;
+			transition: 500ms all;
+			width: 12px;
+			right: 0;
+			top: 3px;
+			border-radius: 50%;
+			border-right: 10px solid var(--primary);
+		}
+
+		.sticky-2 {
+			position: sticky;
+			top: 90px;
+			background: white;
+			z-index: 10;
+			padding: 0.5em;
+		}
+
+		.down-lil-bit {
+			top: 2rem !important;
+		}
+
+		.arrowDown {
+			transform: rotateZ(-90deg);
+			position: absolute;
+			top: 1rem;
+			transition: 1s all;
+			display: flex;
+			justify-content: center;
+			width: 100%;
+		}
+
+		.food-val {
+			width: 2rem;
+			text-align: center;
+			border: none;
+			outline: none !important;
+			color: var(--primary)
+		}
+
+		.head-menu,
+		.foot-menu {
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+		}
+
+		.food-menu {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			font-family: fontR;
+			border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+			border-radius: var(--br);
+			padding: 1rem;
+		}
+
+		.addBtnClass {
+			font-family: fontEB;
+			border: 1px solid rgba(0, 0, 0, 0.05) !important;
+			box-shadow: 0 2px 3px 0 #e7e7e7;
+		}
+
+		.search-svg-absolute {
+			position: absolute;
+			top: 12px;
+			left: 1rem;
+		}
+
+		.cart {
+			display: flex;
+			flex-grow: 1;
+			align-items: center;
+			justify-content: space-between;
+			background: #dbe8fc;
+			height: 48px;
+			font-size: 18px;
+			border-radius: 16px 0 0 16px;
+			margin-left: 1rem;
+			padding-left: 1em;
+		}
+
+		.pr-0 {
+			padding-right: 0 !important;
+		}
+
+		.bill-btn {
+			outline: none !important;
+			border: none;
+			background: var(--white);
+			padding: 8px 12px;
+			font-size: 18px;
+			color: var(--primary);
+			border-radius: 12px;
+			width: 87px;
+		}
+
+		.table-holder-menu img {
+			height: 5rem;
+		}
+
+		.menu-search {
+			height: 48px;
+			outline: none !important;
+			border: none;
+			width: 100%;
+			border-radius: 12px;
+			background: var(--white);
+			padding-left: 3rem;
+			font-size: 20px;
+		}
+
+		.sm-tb-ip {
+			width: 3rem;
+			display: block;
+			margin: auto;
+			text-align: center;
+			border: none;
+			outline: none !important;
+			font-family: fontR;
+			color: var(--primary);
+			min-width: 2rem;
+			position: relative;
+		}
+
+		.call-waiter {
+			outline: none !important;
+			border: none;
+			width: 146px;
+			height: 56px;
+			padding: 16px;
+			border-radius: 16px;
+			background: var(--primary);
+			color: white;
+			float: right;
+			position: fixed;
+			bottom: 1rem;
+			right: 1rem;
+			align-items: flex-end;
+		}
+
+		.menu {
+			margin-bottom: 5rem;
+		}
+
+		.menuCont {
+			padding-top: 0;
+		}
+
+		.menu::-webkit-scrollbar {
+			display: none;
+		}
+
+		.categoryBox {
+			display: flex;
+			overflow-x: scroll;
+			overflow-y: hidden;
+			height: 30px;
+			-ms-overflow-style: none;
+			/* IE and Edge */
+			scrollbar-width: none;
+			/* Firefox */
+		}
+
+		.categoryItem {
+			position: relative;
+			width: max-content;
+			height: 20px;
+			counter-increment: carousel-cell;
+			text-align: center;
+			vertical-align: center;
+			transition: transform 0.5s;
+		}
+
+		.categoryItem p {
+			color: var(--gray2);
+			font-size: 14px;
+			line-height: 20px;
+			letter-spacing: 0.25px;
+			border-radius: 8px;
+			padding: 0.2em 0.5em;
+			width: 100px;
+			min-width: max-content;
+			margin: 0 16px;
+			font-family: 'fontB';
+			background-color: #fafafa;
+		}
+
+		.menuContainer {
+			padding-bottom: 0;
+		}
+
+		.flickity-enabled {
+			position: relative;
+		}
+
+		.food-menu-footer {
+			display: flex;
+			justify-content: center;
+			margin-top: 1em;
+		}
+
+		.fmf-title i {
+			color: var(--bs-gray);
+		}
+
+		.decr:active,
+		.incr:active {
+			opacity: 0.5;
+		}
+
+		.addBtnClass:active {
+			opacity: 0.5;
+		}
+
+		/* .flickity-enabled:focus { outline: none; } */
+		/*   
+  .flickity-viewport {
+    overflow: hidden;
+    position: relative;
+    display:flex;
+    align-items:center;
+    height:30px!important;
+    padding-bottom:2em;
+  }
+  
+  .flickity-slider {
+    position: absolute;
+    width: 100%;
+  }
+  
+  /* draggable */
+
+		/* .flickity-enabled.is-draggable {
+    -webkit-tap-highlight-color: transparent; */
+		/*           tap-highlight-color: transparent; */
+		/* -webkit-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
+  } */
+
+		/*.flickity-enabled.is-draggable .flickity-viewport {
+   /* cursor: move;
+    cursor: -webkit-grab;
+    cursor: grab;
+  }*/
+
+		/* .flickity-enabled.is-draggable .flickity-viewport.is-pointer-down {
+    cursor: -webkit-grabbing;
+    cursor: grabbing;
+  }
+  .flickity-viewport {
+      margin: 0px;
+      width: 100%;
+  } */
+
+
+		/*caraousal end*/
+
+		.searchMenuCont {
+			display: none;
+			padding: 1em;
+		}
+
+		.searchMenu {
+			height: 48px;
+			outline: none !important;
+			border: none;
+			width: 100%;
+			border-radius: 12px;
+			background: var(--white);
+			padding-left: 3rem;
+			font-size: 20px;
+		}
+
+		.icon1 {
+			position: relative;
+			left: 85px;
+			display: none;
+		}
+
+		.backBtn {
+			margin-bottom: 0.5em;
+		}
+
+		.categories {
+			display: flex;
+			justify-content: space-around;
+		}
+
+		.items {
+			color: var(--gray2);
+			font-size: 14px;
+			line-height: 20px;
+			letter-spacing: 0.25px;
+			border-radius: 8px;
+			padding: 0.2em 0.5em;
+			min-width: max-content;
+			margin: 0 1em;
+			font-family: 'fontB';
+			background-color: #fafafa;
+		}
+
+		.itemsMore {
+			display: flex;
+			align-items: center;
+		}
+
+		.categoryCont {
+			margin-bottom: 1em;
+		}
+
+		.itemActive {
+			color: var(--primary);
+			background: #FEF4E4;
+		}
+
+		.moreCategories {
+			display: flex;
+			flex-direction: column;
+			padding: 1em;
+			background: #fafafa;
+			border-radius: 12px;
+			margin: auto;
+			width: max-content;
+			position: absolute;
+			z-index: 1;
+			margin: auto;
+			right: 10%;
+			height: 250px;
+			overflow: auto;
+		}
+
+		.moreItemsBox {
+			display: flex;
+			display: none;
+			justify-content: flex-end;
+		}
+
+		.moreItems {
+			margin-top: 0.5em;
+		}
+
+		.searchIconHolder {
+			position: absolute;
+			width: max-content;
+			top: 52px;
+			left: -45px;
+		}
+
+		.searchNewClass {
+			display: none;
+			justify-content: space-around;
+		}
+
+		.holder1 {
+			display: flex;
+			justify-content: space-around;
+		}
+
+		.subCart1 {
+			display: flex;
+			height: 100%;
+			align-items: center;
+		}
+
+		.subCart2 {
+			height: 100%;
+			width: 50%;
+		}
+
+		.bill-btn1 {
+			height: 100%;
+			width: 100%;
+			border-radius: 16px 0 0 16px;
+			font-family: 'fontEB';
+			display: flex;
+			justify-content: space-around;
+			align-items: center;
+		}
+
+		.closeIconHolder {
+			position: absolute;
+			top: 50px;
+			right: 2.5em;
+		}
+
+		.holder2 {
+			display: none;
+			margin-left: -17px;
+		}
+
+		.icon1new {
+			display: none;
+			top: 15px;
+			position: relative;
+			left: 2em;
+		}
+
+		.icon2new {
+			display: none;
+			position: absolute;
+			top: 36px;
+			right: 1em;
+		}
+
+		.removeStyles {
+			text-decoration: none;
+		}
+
+		.removeStyles:hover {
+			text-decoration: none;
+			color: var(--primary);
+		}
+
+		.removeStyles:active {
+			text-decoration: none;
+			color: var(--primary);
+		}
+
+		.removeStyles:focus {
+			text-decoration: none;
+			color: var(--primary);
+		}
+	</style>
+	<div class="cowk-container pr-0 sticky-top bg-white">
+		<div class="searchBox d-flex align-items-center justify-content-between fontR">
+			<a href="search.php">
+				<div class='svg-holder'>
+					<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24"
+						height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+						stroke-linecap="round" stroke-linejoin="round">
+						<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+						<polyline points="15 6 9 12 15 18"></polyline>
+					</svg>
+				</div>
+			</a>
+			<div class='cart'>
+				<div class="subCart1">
+					<div> <span id='item_num_cart'> 0 </span> Items </div>
+					<span class='mx-3'>|</span>
+					<div> &#8377;<span id='total_price_cart'>0</span></div>
+				</div>
+				<div class="subCart2">
+					<a href="bill.php" class='bill-btn bill-btn1 removeStyles'>
+						Your Bill
+						<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-right"
+							width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="#ff8000" fill="none"
+							stroke-linecap="round" stroke-linejoin="round">
+							<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+							<polyline points="9 6 15 12 9 18"></polyline>
+						</svg>
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="cowk-container py-0 menuContainer">
+		<div class='table-holder-menu justify-content-between d-flex align-items-center'>
+			<div class="d-flex flex-column">
+				<h3 class="fontEB headings"> Funnel Hell Creamery</h3>
+				<span class='primary'> You are at Table <span>69</span></span>
+			</div>
+			<div class='position-relative'>
+				<input type="number" class='sm-tb-ip' readonly value=69>
+				<div class="arrowDown">
+					<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24"
+						height="24" viewBox="0 0 24 24" stroke-width="2" stroke="lightgray" fill="none"
+						stroke-linecap="round" stroke-linejoin="round">
+						<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+						<polyline points="15 6 9 12 15 18"></polyline>
+					</svg>
+				</div>
+				<img src="assets/images/table.png" alt="">
+			</div>
+		</div>
+	</div>
+	<div class="cowk-container sticky-2">
+		<div>
+			<!-- <div class='position-relative'> -->
+			<!-- <input type="text" class='menu-search' placeholder ='Search items'   > -->
+			<!-- <div class='search-svg-absolute' onclick="showSearch()">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="gray" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><circle cx="10" cy="10" r="7" /><line x1="21" y1="21" x2="15" y2="15" /></svg>
+            </div> -->
+			<!-- </div> -->
+			<div class='categoriesHolder my-3'>
+				<div class="holder1">
+					<div>
+						<input type="checkbox" id='vegcheckbox' name='vegornon'>
+						<label for="vegcheckbox"> VEG </label>
+					</div>
+					<div>
+						<input type="checkbox" id='nonvegcheckbox' name='vegornon'>
+						<label for="nonvegcheckbox"> NON VEG </label>
+					</div>
+					<div class='' onclick="showSearch()">
+						<svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24"
+							stroke-width="2" stroke="gray" fill="none" stroke-linecap="round" stroke-linejoin="round">
+							<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+							<circle cx="10" cy="10" r="7" />
+							<line x1="21" y1="21" x2="15" y2="15" />
+						</svg>
+					</div>
+					<div class="menuHolder" onclick="showCategories();">
+						<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-menu-2" width="24"
+							height="24" viewBox="0 0 24 24" stroke-width="2" stroke="#505050" fill="none"
+							stroke-linecap="round" stroke-linejoin="round">
+							<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+							<line x1="4" y1="6" x2="20" y2="6"></line>
+							<line x1="4" y1="12" x2="20" y2="12"></line>
+							<line x1="4" y1="18" x2="20" y2="18"></line>
+						</svg>
+					</div>
+				</div>
+				<div class="holder2">
+					<svg xmlns="http://www.w3.org/2000/svg" class="icon1new" width="20" height="20" viewBox="0 0 24 24"
+						stroke-width="2" stroke="gray" fill="none" stroke-linecap="round" stroke-linejoin="round">
+						<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+						<circle cx="10" cy="10" r="7" />
+						<line x1="21" y1="21" x2="15" y2="15" />
+					</svg>
+					<input type="text" class='searchMenu' placeholder='Search items'>
+					<svg xmlns="http://www.w3.org/2000/svg" onclick="hideSearch();"
+						class="icon icon-tabler icon-tabler-square-x icon2new" width="24" height="24"
+						viewBox="0 0 24 24" stroke-width="2" stroke="#505050" fill="none" stroke-linecap="round"
+						stroke-linejoin="round">
+						<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+						<rect x="4" y="4" width="16" height="16" rx="2"></rect>
+						<path d="M10 10l4 4m0 -4l-4 4"></path>
+					</svg>
+				</div>
+				<div class="moreItemsBox">
+					<div class="moreCategories">
+						<span class="items moreItems">Tandoor</span>
+						<span class=" items moreItems">Breads</span>
+						<span class="items moreItems">Veg Curries</span>
+						<span class="items moreItems">Non Veg Curries</span>
+						<span class="items moreItems">Starters</span>
+						<span class="items moreItems">Deserts</span>
+						<span class="items moreItems">Tandoor</span>
+						<span class=" items moreItems">Breads</span>
+						<span class="items moreItems">Veg Curries</span>
+						<span class="items moreItems">Non Veg Curries</span>
+						<span class="items moreItems">Starters</span>
+						<span class="items moreItems">Deserts</span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="cowk-container menuCont">
+			<div class="menu">
+				<div class="food-menu">
+					<div class="head-menu">
+						<div class="">
+							<span class="nonveg"></span>
+							<span>Chicken Dum Biryani</span>
+						</div>
+						<div class="gray2">
+							<span class="dummy"></span>
+							<span>₹180</span>
+						</div>
+					</div>
+					<div class="foot-menu">
+						<button class='bill-btn addBtnClass'>
+							Add
+						</button>
+						<div class='d-none'>
+							<button class="decr">
+								-
+							</button>
+							<input type="number" readonly="" class="food-val" value="0">
+							<button class="incr">
+								+
+							</button>
+						</div>
+					</div>
+				</div>
+				<!-- -->
+				<div class="food-menu">
+					<div class="head-menu">
+						<div class="">
+							<span class="veg"></span>
+							<span>Chicken Dum Biryani</span>
+						</div>
+						<div class="gray2"> ₹180</div>
+					</div>
+					<div class="foot-menu">
+						<button class='bill-btn addBtnClass'>
+							Add
+						</button>
+						<div class='d-none'>
+							<button class="decr">
+								-
+							</button>
+							<input type="number" readonly="" class="food-val" value="0">
+							<button class="incr">
+								+
+							</button>
+						</div>
+					</div>
+				</div>
+				<div class="food-menu">
+					<div class="head-menu">
+						<div class="">
+							<span class="veg"></span>
+							<span>Chicken Dum Biryani</span>
+						</div>
+						<div class="gray2"> ₹180</div>
+					</div>
+					<div class="foot-menu">
+						<button class='bill-btn addBtnClass'>
+							Add
+						</button>
+						<div class='d-none'>
+							<button class="decr">
+								-
+							</button>
+							<input type="number" readonly="" class="food-val" value="0">
+							<button class="incr">
+								+
+							</button>
+						</div>
+					</div>
+				</div>
+				<div class="food-menu">
+					<div class="head-menu">
+						<div class="">
+							<span class="nonveg"></span>
+							<span>Chicken Dum Biryani</span>
+						</div>
+						<div class="gray2"> ₹180</div>
+					</div>
+					<div class="foot-menu">
+						<button class='bill-btn addBtnClass'>
+							Add
+						</button>
+						<div class='d-none'>
+							<button class="decr">
+								-
+							</button>
+							<input type="number" readonly="" class="food-val" value="0">
+							<button class="incr">
+								+
+							</button>
+						</div>
+					</div>
+				</div>
+				<div class="food-menu">
+					<div class="head-menu">
+						<div class="">
+							<span class="nonveg"></span>
+							<span>Chicken Dum Biryani</span>
+						</div>
+						<div class="gray2"> ₹180</div>
+					</div>
+					<div class="foot-menu">
+						<button class='bill-btn addBtnClass'>
+							Add
+						</button>
+						<div class='d-none'>
+							<button class="decr">
+								-
+							</button>
+							<input type="number" readonly="" class="food-val" value="0">
+							<button class="incr">
+								+
+							</button>
+						</div>
+					</div>
+				</div>
+				<div class="food-menu">
+					<div class="head-menu">
+						<div class="">
+							<span class="veg"></span>
+							<span>Chicken Dum Biryani</span>
+						</div>
+						<div class="gray2"> ₹180</div>
+					</div>
+					<div class="foot-menu">
+						<button class='bill-btn addBtnClass'>
+							Add
+						</button>
+						<div class='d-none'>
+							<button class="decr">
+								-
+							</button>
+							<input type="number" readonly="" class="food-val" value="0">
+							<button class="incr">
+								+
+							</button>
+						</div>
+					</div>
+				</div>
+				<div class="food-menu">
+					<div class="head-menu">
+						<div class="">
+							<span class="veg"></span>
+							<span>Chicken Dum Biryani</span>
+						</div>
+						<div class="gray2"> ₹180</div>
+					</div>
+					<div class="foot-menu">
+						<button class='bill-btn addBtnClass'>
+							Add
+						</button>
+						<div class='d-none'>
+							<button class="decr">
+								-
+							</button>
+							<input type="number" readonly="" class="food-val" value="0">
+							<button class="incr">
+								+
+							</button>
+						</div>
+					</div>
+				</div>
+				<div class="food-menu">
+					<div class="head-menu">
+						<div class="">
+							<span class="veg"></span>
+							<span>Chicken Dum Biryani</span>
+						</div>
+						<div class="gray2"> ₹180</div>
+					</div>
+					<div class="foot-menu">
+						<button class='bill-btn addBtnClass'>
+							Add
+						</button>
+						<div class='d-none'>
+							<button class="decr">
+								-
+							</button>
+							<input type="number" readonly="" class="food-val" value="0">
+							<button class="incr">
+								+
+							</button>
+						</div>
+					</div>
+				</div>
+				<div class="food-menu">
+					<div class="head-menu">
+						<div class="">
+							<span class="veg"></span>
+							<span>Chicken Dum Biryani</span>
+						</div>
+						<div class="gray2"> ₹180</div>
+					</div>
+					<div class="foot-menu">
+						<button class='bill-btn addBtnClass'>
+							Add
+						</button>
+						<div class='d-none'>
+							<button class="decr">
+								-
+							</button>
+							<input type="number" readonly="" class="food-val" value="0">
+							<button class="incr">
+								+
+							</button>
+						</div>
+					</div>
+				</div>
+				<div class="food-menu">
+					<div class="head-menu">
+						<div class="">
+							<span class="veg"></span>
+							<span>Chicken Dum Biryani</span>
+						</div>
+						<div class="gray2"> ₹180</div>
+					</div>
+					<div class="foot-menu">
+						<button class='bill-btn addBtnClass'>
+							Add
+						</button>
+						<div class='d-none'>
+							<button class="decr">
+								-
+							</button>
+							<input type="number" readonly="" class="food-val" value="0">
+							<button class="incr">
+								+
+							</button>
+						</div>
+					</div>
+				</div>
+				<div class="food-menu">
+					<div class="head-menu">
+						<div class="">
+							<span class="veg"></span>
+							<span>Chicken Dum Biryani</span>
+						</div>
+						<div class="gray2"> ₹180</div>
+					</div>
+					<div class="foot-menu">
+						<button class='bill-btn addBtnClass'>
+							Add
+						</button>
+						<div class='d-none'>
+							<button class="decr">
+								-
+							</button>
+							<input type="number" readonly="" class="food-val" value="0">
+							<button class="incr">
+								+
+							</button>
+						</div>
+					</div>
+				</div>
+				<div class="food-menu">
+					<div class="head-menu">
+						<div class="">
+							<span class="nonveg"></span>
+							<span>Chicken Dum Biryani</span>
+						</div>
+						<div class="gray2"> ₹180</div>
+					</div>
+					<div class="foot-menu">
+						<button class='bill-btn addBtnClass'>
+							Add
+						</button>
+						<div class='d-none'>
+							<button class="decr">
+								-
+							</button>
+							<input type="number" readonly="" class="food-val" value="0">
+							<button class="incr">
+								+
+							</button>
+						</div>
+					</div>
+				</div>
+				<div class="food-menu">
+					<div class="head-menu">
+						<div class="">
+							<span class="nonveg"></span>
+							<span>Chicken Dum Biryani</span>
+						</div>
+						<div class="gray2"> ₹180</div>
+					</div>
+					<div class="foot-menu">
+						<button class='bill-btn addBtnClass'>
+							Add
+						</button>
+						<div class='d-none'>
+							<button class="decr">
+								-
+							</button>
+							<input type="number" readonly="" class="food-val" value="0">
+							<button class="incr">
+								+
+							</button>
+						</div>
+					</div>
+				</div>
+				<div class="food-menu">
+					<div class="head-menu">
+						<div class="">
+							<span class="nonveg"></span>
+							<span>Chicken Dum Biryani</span>
+						</div>
+						<div class="gray2"> ₹180</div>
+					</div>
+					<div class="foot-menu">
+						<button class='bill-btn addBtnClass'>
+							Add
+						</button>
+						<div class='d-none'>
+							<button class="decr">
+								-
+							</button>
+							<input type="number" readonly="" class="food-val" value="0">
+							<button class="incr">
+								+
+							</button>
+						</div>
+					</div>
+				</div>
+				<div class="food-menu">
+					<div class="head-menu">
+						<div class="">
+							<span class="nonveg"></span>
+							<span>Chicken Dum Biryani</span>
+						</div>
+						<div class="gray2"> ₹180</div>
+					</div>
+					<div class="foot-menu">
+						<button class='bill-btn addBtnClass'>
+							Add
+						</button>
+						<div class='d-none'>
+							<button class="decr">
+								-
+							</button>
+							<input type="number" readonly="" class="food-val" value="0">
+							<button class="incr">
+								+
+							</button>
+						</div>
+					</div>
+				</div>
+				<!-- -->
+				<div class="food-menu-footer">
+					<p class="fmf-title"><i>that's all folks</i></p>
+				</div>
+			</div>
+
+			<button class='call-waiter d-flex justify-content-around' onclick="callWaiter();">
+				<div class="waiter-icon">
+					<div class="animIcon"></div>
+					<img src="assets/images/callwaiter.svg" alt="">
+				</div>
+
+				<span class="cw">Call Waiter</span>
+			</button>
+		</div>
+	</div>
+
+	<script>
+		setInterval(() => {
+			document.querySelector('.arrowDown').classList.toggle('down-lil-bit');
+		}, 500);
+		setInterval(() => {
+			document.querySelector('.cover').classList.toggle('borderSpanIcon');
+		}, 1000);
+	</script>
+
+
+	<script>
+
+		//CAROUSEL SETTINGS
+		var $imagesCarousel = jQuery('.categoryBox').flickity({
+			/* options, defaults listed */
+
+			accessibility: false,
+			/* enable keyboard navigation, pressing left & right keys */
+
+			autoPlay: false,
+			pauseAutoPlayOnHover: false,
+			/* advances to the next cell
+			if true, default is 3 seconds
+			or set time between advances in milliseconds
+			i.e. `autoPlay: 1000` will advance every 1 second */
+
+			cellAlign: 'left',
+			/* alignment of cells, 'center', 'left', or 'right'
+			or a decimal 0-1, 0 is beginning (left) of container, 1 is end (right) */
+
+			// cellSelector: '.topic-switcher__item',
+			/* specify selector for cell elements */
+
+			contain: false,
+			/* will contain cells to container
+			so no excess scroll at beginning or end
+			has no effect if wrapAround is enabled */
+
+			draggable: true,
+			/* enables dragging & flickin
+			freeScroll: false,
+			enables content to be freely scrolled and flicked
+			without aligning cells */
+
+			friction: 0.5,
+			/* smaller number = easier to flick farther */
+
+			initialIndex: 0,
+			/* zero-based index of the initial selected cell */
+
+			lazyLoad: false,
+			/* enable lazy-loading images
+			set img data-flickity-lazyload="src.jpg"
+			set to number to load images adjacent cells */
+
+			percentPosition: true,
+			/* sets positioning in percent values, rather than pixels
+			Enable if items have percent widths
+			Disable if items have pixel widths, like images */
+
+			prevNextButtons: false,
+			/* creates and enables buttons to click to previous & next cells */
+
+			pageDots: false,
+			/* create and enable page dots */
+
+			resize: true,
+			/* listens to window resize events to adjust size & positions */
+
+			rightToLeft: false,
+			/* enables right-to-left layout */
+
+			setGallerySize: true,
+			/* sets the height of gallery
+			disable if gallery already has height set with CSS */
+
+			watchCSS: false,
+			/* watches the content of :after of the element
+			activates if #element:after { content: 'flickity' }
+			IE8 and Android 2.3 do not support watching :after
+			set watch: 'fallbackOn' to enable for these browsers */
+
+			wrapAround: true
+			/* at end of cells, wraps-around to first for infinite scrolling */
+		});
+
+		function resizeCells() {
+			var flkty = $imagesCarousel.data('flickity');
+			var $current = flkty.selectedIndex;
+			var $length = flkty.cells.length;
+			var $imageNumLimit = 5;
+			if ($length < $imageNumLimit) {
+				$imagesCarousel.flickity('destroy');
+			}
+			jQuery('.categoryBox .categoryItem').removeClass("nextToSelectedLeft");
+			jQuery('.categoryBox .categoryItem').removeClass("nextToSelectedRight");
+			jQuery('.categoryBox .categoryItem').removeClass("nextToSelectedLeft2");
+			jQuery('.categoryBox .categoryItem').removeClass("nextToSelectedRight2");
+			jQuery('.categoryBox .categoryItem').eq($current - 1).addClass("nextToSelectedLeft");
+			jQuery('.categoryBox .categoryItem').eq($current - 2).addClass("nextToSelectedLeft2");
+			var $endCell;
+			if ($current + 1 == $length) {
+				$endCell = "0";
+			} else {
+				$endCell = $current + 1;
+			}
+			jQuery('.categoryBox .categoryItem').eq($endCell).addClass("nextToSelectedRight");
+			if ($endCell + 1 < $imageNumLimit) {
+				jQuery('.categoryBox .categoryItem').eq($endCell + 1).addClass("nextToSelectedRight2");
+			} else {
+				jQuery('.categoryBox .categoryItem').eq(0).addClass("nextToSelectedRight2");
+			}
+		}
+		resizeCells();
+
+		$imagesCarousel.on('scroll.flickity', function () {
+			resizeCells();
+		});
+
+		function showSearch() {
+			$(".holder1").hide(300);
+			$(".holder2").show(400).css("display", "flex");
+			$(".icon1new").show(400);
+			$(".icon2new").show(400);
+			$(".searchMenu").focus();
+		}
+		function hideSearch() {
+			$(".holder1").show(400);
+			$(".holder2").hide(300);
+			$(".icon1new").hide(300);
+			$(".icon2new").hide(300);
+		}
+
+	</script>
+	<script>
+		var decr = document.getElementsByClassName('decr');
+		var incr = document.getElementsByClassName('incr');
+		var addBtnClass = document.getElementsByClassName('addBtnClass');
+		for (let i = 0; i < addBtnClass.length; i++) {
+			addBtnClass[i].nextElementSibling.children[1].disabled = true;
+
+			addBtnClass[i].addEventListener('click', () => {
+				addBtnClass[i].classList.add('d-none');
+				addBtnClass[i].nextElementSibling.classList.remove('d-none');
+				addBtnClass[i].nextElementSibling.children[1].value = 1;
+				addBtnClass[i].nextElementSibling.children[1].disabled = false;
+			});
+			decr[i].addEventListener('click', () => {
+				decr[i].nextElementSibling.value--;
+				if (decr[i].nextElementSibling.value == 0) {
+					addBtnClass[i].classList.remove('d-none');
+					addBtnClass[i].nextElementSibling.classList.add('d-none');
+					addBtnClass[i].nextElementSibling.children[1].disabled = false;
+				}
+			});
+			incr[i].addEventListener('click', () => {
+				incr[i].previousElementSibling.value++;
+			});
+		}
+		function showCategories() {
+			$(".moreItemsBox").toggle(400);
+		}
+		$(".items").on("click", function () {
+			$(this).toggleClass("itemActive");
+		});
+
+		function callWaiter() {
+			$(".animIcon").addClass("cover");
+			$(".cw").html("Calling...");
+			$(".call-waiter").css("width", "120px");
+		}
+	</script>
+	<?php include 'footer.php'?>
+</body>
+
+</html>
